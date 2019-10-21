@@ -137,6 +137,17 @@ int main() {
 	*/
 	cout << "Copying content of one queue to another queue using copy constructor and Printing the contents of queue destination\n";
 	queueDestination.print();
+
+
+	/*
+	Copying content of one queue to another queue using assignment constructor
+	*/
+	cQueue queueDestination1=queue;
+	/*
+	Printing the contents of queue destination
+	*/
+	cout << "Copying content of one queue to another queue using assignment operator and Printing the contents of queue destination1\n";
+	queueDestination1.print();
 	
 
 	system("pause");
