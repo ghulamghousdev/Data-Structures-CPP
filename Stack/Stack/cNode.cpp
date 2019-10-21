@@ -2,8 +2,9 @@
 Function definations of cNode class
 */
 
-#include <iostream>
 #include "cNode.h"
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 
@@ -16,6 +17,12 @@ by the user to the data member named as data
 */
 cNode::cNode(int d): data(d){}
 
+void cNode::readNodeFromFile(ifstream &inFile) { inFile.read((char*)this, sizeof(this)); }
+
+void cNode::writeNodeToFile(ofstream &oFile) { oFile.write((char*)this, sizeof(this)); }
+cNode::cNode (ifstream &inFile){ inFile.read((char*)this, sizeof(this)); }
+
+cNode::cNode(ofstream &oFile) { oFile.write((char*)this, sizeof(this)); }
 /*
 Function used to set data passed by the user in node of STACK
 */
