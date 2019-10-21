@@ -171,7 +171,8 @@ int main() {
 	/*
 	Checking Assignment Operator
 	*/
-	cPriorityQue queue1(queueDestination);
+	cout << "\nCopying content of one queue to another queue using copy constructor and Printing the contents of queue destination\n";
+	cPriorityQue queue1=queueDestination;
 	queue1.print();
 	
 	system("pause");
