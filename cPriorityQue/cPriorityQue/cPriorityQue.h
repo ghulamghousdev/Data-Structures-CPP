@@ -8,6 +8,7 @@ class cPriorityQue:protected cQueue{
 public:
 	cPriorityQue();
 	cPriorityQue(cNode *& ptr);
+
 	bool isEmpty() const;
 	bool isNotEmpty() const;
 	cPriorityQue & addInPriorityQue(cNode *&ptr);
