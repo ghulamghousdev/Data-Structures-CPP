@@ -16,6 +16,7 @@ by the user to the data member named as data
 */
 cNode::cNode(int d) : data(d) {}
 
+
 /*
 Function used to set data passed by the user in node of STACK
 */
