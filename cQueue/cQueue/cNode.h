@@ -12,34 +12,18 @@ public:
 	*/
 	cNode* nextNode;
 
-	/*
-	Default constructor
-	*/
+	
+	//Default constructor
 	cNode();
-
-	/*
-	Parameterized Constuctor
-	*/
+	//Parameterized Constuctor
 	cNode(int d);
-
-	/*
-	Function to set data in the node of a STACK
-	*/
+	//Function to set data in the node of a STACK
 	cNode & setData(int number);
-
-	/*
-	Function to get data of a node
-	*/
+	//Function to get data of a node
 	int getData();
-
-	/*
-	Print Function is used to print all the elements in the STACK
-	*/
+	//Print Function is used to print all the elements in the STACK
 	void print() const;
-
-	/*
-	Default desstructor wouldn't delete the memory allocated on HEAP
-	*/
+	//Default desstructor wouldn't delete the memory allocated on HEAP
 	~cNode();
 };
 
