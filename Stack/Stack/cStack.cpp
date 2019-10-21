@@ -14,21 +14,23 @@ Parameterized Constructor
 cStack::cStack(cNode *&ptr):top(ptr) {
 	top->nextNode = NULL;
 	ptr = NULL;
+	count++;
 }
 
 //cStack constructor to input nodes from file 
 cStack::cStack(ifstream &inFile) : top(NULL), count(0) {
 	int size;
-	inFile.read((char*)& size, sizeof(size));
+	inFile.read((char*)&size, sizeof(size));
 	if (size > 0) {
 		cNode *rptr;
 		rptr = top = new cNode(inFile);
 		count = size;
-		for (int i = 0; i < count; ++i) {
+		for (int i = 1; i < count; ++i) {
 			rptr->nextNode = new cNode(inFile);
 			rptr = rptr->nextNode;
 		}
 		rptr->nextNode = NULL;
+		rptr = NULL;
 	}
 }
 
@@ -51,7 +53,7 @@ void cStack::writeToFile(ofstream &oFile) {
 		cout << "File is not opened !" << endl;
 	}
 	else {
-		oFile.write((char*)&count, sizeof(count));
+		oFile.write((char*)&this->count, sizeof(count));
 
 		if (count > 0) {
 			cNode *rptr = top;
@@ -117,6 +119,7 @@ cStack & cStack::push(cNode *&ptr) {
 	ptr->nextNode = top;
 	top = ptr;
 	ptr = NULL;
+	++count;
 	return *this;
 }
 
@@ -128,6 +131,7 @@ cNode * cStack::pop() {
 	ptr = top;
 	top = top->nextNode;
 	ptr->nextNode = NULL;
+	--count;
 	return ptr;
 }
 

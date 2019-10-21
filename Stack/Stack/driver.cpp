@@ -146,7 +146,7 @@ int main() {
 
 	if (outFile.is_open()) {
 		cout << "\nStarted writing to file !" << endl;
-		stack3.writeToFile(outFile);
+		stack.writeToFile(outFile);
 		cout << "Done writing to file !" << endl;
 	}
 	else {
