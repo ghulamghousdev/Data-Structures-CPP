@@ -1,13 +1,14 @@
 #pragma once
-#include <iostream>
 #include "cNode.h"
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 class cStack
 {
 	//This is a pointer used to point to the top element of STACK
 	cNode *top;
-
+	int count;
 public:
 	//Default constructor
 	cStack(); 
@@ -21,26 +22,30 @@ public:
 	//Checking that if the STACK is empty or not
 	bool isEmpty() const; 
 	bool isNotEmpty() const;
+
+	//constructors for file handling
+	cStack(ifstream &inFile);
+	cStack(ofstream &outFile);
+
+	//Functions to read and to write in file
+	void writeToFile(ofstream &oFile);
+	void readFromFile(ifstream &inFile);
 	/*
 	Push a node at the end of the STACK using a node pointer
 	Returning Reference will allow cascadeability use
 	*/
 	cStack & push(cNode *&ptr);
-	/*
-	Extracting the first node from the STACK
-	*/
+
+	//Extracting the first node from the STACK
 	cNode * pop();
-	/*
-	This function is used to print all the elements in the STACK
-	*/
+	
+	//This function is used to print all the elements in the STACK
 	void print() const;
-	/*
-	Copy constructor used to copy contents of one STACK to other STACK
-	*/
+	
+	//Copy constructor used to copy contents of one STACK to other STACK
 	cStack(const cStack & src);
-	/*
-	Overloading the assignment operator for the STACK class
-	*/
+	
+	//Overloading the assignment operator for the STACK class
 	cStack & operator = (const cStack & rObj);
 	/*
 	Default desstructor wouldn't delete the stack allocated on HEAP so the self defined deletes all nodes in STACK

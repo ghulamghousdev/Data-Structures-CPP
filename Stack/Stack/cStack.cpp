@@ -1,6 +1,6 @@
 #include "cStack.h"
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 
 /*
@@ -16,13 +16,83 @@ cStack::cStack(cNode *&ptr):top(ptr) {
 	ptr = NULL;
 }
 
+//cStack constructor to input nodes from file 
+cStack::cStack(ifstream &inFile) : top(NULL), count(0) {
+	int size;
+	inFile.read((char*)& size, sizeof(size));
+	if (size > 0) {
+		cNode *rptr;
+		rptr = top = new cNode(inFile);
+		count = size;
+		for (int i = 0; i < count; ++i) {
+			rptr->nextNode = new cNode(inFile);
+			rptr = rptr->nextNode;
+		}
+		rptr->nextNode = NULL;
+	}
+}
+
+//Constructors for FILE HANDLING 'OUTPUT DATA TO FILE'
+cStack::cStack(ofstream &outFile) {
+	outFile.write((char*)&count, sizeof(count));
+	if (count > 0) {
+		cNode *ptr = top;
+		ptr = new cNode(outFile);
+		for (int i = 1; i < count; i++) {
+			ptr->nextNode = new cNode(outFile);
+			ptr = ptr->nextNode;
+		}
+	}
+}
+
+//Member function to write cStack nodes to file
+void cStack::writeToFile(ofstream &oFile) {
+	if (!(oFile.is_open())) {
+		cout << "File is not opened !" << endl;
+	}
+	else {
+		oFile.write((char*)&count, sizeof(count));
+
+		if (count > 0) {
+			cNode *rptr = top;
+			for (int i = 0; i < count; ++i) {
+				rptr->writeNodeToFile(oFile);
+				rptr = rptr->nextNode;
+			}
+		}
+	}
+}
+
+//Member function to read input nodes from file
+void cStack::readFromFile(ifstream &inFile) {
+
+	if (true) {
+		cStack temp;
+		temp.top = this->top;
+	}
+
+	inFile.read((char*)&count, sizeof(count));
+	cout << "count = " << count << endl;
+
+	if (count > 0) {
+		cNode *temp;
+		temp = top = new cNode(inFile);
+
+		for (int i = 1; i < count; ++i) {
+			temp->nextNode = new cNode(inFile);
+			temp = temp->nextNode;
+		}
+		temp->nextNode = NULL;
+	}
+}
+
 /*
 Function to check if Stack is not empty
 */
 bool cStack::isNotEmpty() const{
 	if (top != NULL) { //if STACK is not empty returning true
 		return true;
-	}
+	} 
 	else {//if STACK is empty returning false
 		return false; 
 	}
@@ -91,7 +161,7 @@ cStack::cStack(const cStack & src) {
 		dPtr = top = new cNode(*src.top);
 		sPtr = src.top->nextNode;
 		while (sPtr) {
-			dPtr->nextNode = new cNode(*src.top);
+			dPtr->nextNode = new cNode(*sPtr);
 			sPtr = sPtr->nextNode;
 			dPtr = dPtr->nextNode;
 		}
