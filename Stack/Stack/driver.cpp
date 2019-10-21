@@ -1,7 +1,6 @@
-#include <iostream>
-#include "cNode.h"
 #include "cStack.h"
-
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 int main() {
@@ -129,6 +128,53 @@ int main() {
 	node8->setData(800);
 	cout << "Now getting value of a node8 using getData function: ";
 	cout<< node8->getData() <<"\n";
+	
+	//Copying contents of one object into another using copyconstructor
+	cout << "\nCopying contents of one object into another using copyconstructor\n";
+	cStack stack2(stack);
+	stack2.print();
+
+	//Copying contents of one object into another using assignment operator
+	cout << "\nCopying contents of one object into another using assignment operator\n";
+	cStack stack3=stack;
+	stack3.print();
+
+
+	//Opeing file for write operation
+	ofstream outFile;
+	outFile.open("C:/Users/Ghous/Documents/MID TERM PROJECT DSA/Stack/Stack/data.txt");
+
+	if (outFile.is_open()) {
+		cout << "\nStarted writing to file !" << endl;
+		stack3.writeToFile(outFile);
+		cout << "Done writing to file !" << endl;
+	}
+	else {
+		cout << "File not opened for writing !" << endl;
+	}
+
+	outFile.close();
+	/*
+	This example clearly describes the basic working of a basic Stack Data Strusture
+	*/
+
+	ifstream inFile;
+	inFile.open("C:/Users/Ghous/Documents/MID TERM PROJECT DSA/Stack/Stack/data.txt");
+	cStack stack1;
+
+	if (inFile.is_open()) {
+		cout << "\nReading data of Stack1 from file data.txt" << endl;
+		stack1.readFromFile(inFile);
+		cout << "Done Reading from file !\n";
+	}
+	else {
+		cout << "The file is not opened for the Read operation !" << endl;
+	}
+
+	cout << "Printing stack object Read from file" << endl;
+	stack1.print();
+
+	inFile.close();
 
 	system("pause");
 }
