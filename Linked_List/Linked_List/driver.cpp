@@ -1,5 +1,6 @@
-#include<iostream>
 #include"cList.h"
+#include<iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -115,13 +116,26 @@ int main() {
 	cout << "\nNow deleting 3rd node from the LINKED LIST\n";
 	list.removeAt(3);
 	if (list.isNotEmpty()) list.print();
-	
-	//Now getting value of a node using getValue function
-	cNode *node10 = new cNode();
-	node10->setData(800);
-	cout << "\nNow getting value of a node1 using getData function: ";
-	cout << node10->getData() << "\n";
 
+	//Swapping the nodes present at  index 1 and 3
+	cout << "\nSwapping the nodes present at  index 1 and 3\n";
+	list.swapNodesAt(1, 3);
+	if (list.isNotEmpty()) list.print();
+
+	
+	
+
+	//Now getting value of a node using getValue function
+	cNode *node11 = new cNode();
+	node11->setData(800);
+	cout << "\nNow getting value of a node11 using getData function: ";
+	cout << node11->getData() << "\n";
+
+	//reversing the list
+	cout << "\n\nAfter reversing the list";
+	list.reverse();
+	if (list.isNotEmpty()) list.print();
+	
 	//Checking copy constructor 
 	cList list1(list);
 	cout << "\nList after copying contents of one list into another using copyconstructor: \n";
@@ -130,12 +144,48 @@ int main() {
 	 //Copying contents of one list to another using assignment operator
 	 cList list2 = list1;
 	 cout << "\nCopying contents of one list to another using assignment operator\n";
-	 if (list2.isNotEmpty()); list2.print();
+	 if (list2.isNotEmpty()) 
+		list2.print();
+	 //Opeing file for write operation
+	 ofstream outFile;
+	 outFile.open("C:/Users/Ghous/Documents/MID TERM PROJECT DSA/Linked_List/Linked_List/data.txt");
 
-	 //Swapping two nodes
-	 cout << "\Swapping node at index 2 and node at index 3\n";
-	 list.swapNodesAt(2, 4);
-	 list.print();
+	 if (outFile.is_open()) {
+		 cout << "\nStarted writing to file !" << endl;
+		 list.writeListToFile(outFile);
+		 cout << "Done writing to file !" << endl;
+	 }
+	 else {
+		 cout << "File not opened for writing !" << endl;
+	 }
+
+	 outFile.close();
+
+	
+
+	 ifstream inFile;
+	 inFile.open("C:/Users/Ghous/Documents/MID TERM PROJECT DSA/Linked_List/Linked_List/data.txt");
+	 cList linkList;
+
+	 if (inFile.is_open()) {
+		 cout << "\nReading data of linkList from file data.txt" << endl;
+		 linkList.readListFromFile(inFile);
+		 cout << "Done Reading from file !\n";
+	 }
+	 else {
+		 cout << "The file is not opened for the Read operation !" << endl;
+	 }
+
+	 cout << "Printing list object Read from file" << endl;
+	 linkList.print();
+
+	 inFile.close();
+	 
+	 //reversing the list
+	 cout << "\n\nAfter reversing the list";
+	 list.reverse();
+	 if (list.isNotEmpty()) list.print();
+
 
 	system("pause");
 
