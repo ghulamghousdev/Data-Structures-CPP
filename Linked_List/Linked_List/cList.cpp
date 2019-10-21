@@ -1,5 +1,6 @@
 #include "cList.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 
@@ -13,7 +14,7 @@ cList::cList(cNode *& ptr)
 	headNode->nextNode = NULL;
 	count = 1;
 }
-/*
+
 //Constructors for FILE HANDLING 'INPUT DATA FROM FILE'
 cList::cList(ifstream &inFile):headNode(NULL), count(0) {
 	inFile.read((char*)&count, sizeof(count));
@@ -79,7 +80,7 @@ void cList::readListFromFile(ifstream &inFile) {
 		}
 	}
 }
-*/
+
 //Functions to check if the link list is empty or not
 bool cList::isEmpty() { if (headNode == NULL) return true; else return false; }
 bool cList::isNotEmpty() { if (headNode != NULL) return true; else return false; }
@@ -94,6 +95,7 @@ cList & cList::insert(cNode *& ptr)
 	return *this;
 }
 
+//Function to insert at a specific node
 cList & cList::insertAt(int index, cNode *& ptr)
 {
 	if (index < 0) return insert(ptr); //If index is less then 0, the node is inserted at the start of the list
@@ -110,6 +112,7 @@ cList & cList::insertAt(int index, cNode *& ptr)
 	return *this;
 }
 
+//Removing the first node from the list
 cNode * cList::remove()
 {
 	if (isEmpty()) { //if the list is empty, the program will exit from this function
@@ -143,19 +146,20 @@ cNode * cList::removeAt(int index)
 	return ptr;
 }
 
+
 //Function to swap two nodes
 cList & cList::swapNodesAt(int index1, int index2)
 {
 	if (index1 < 0) index1 = 0; 
 	if (index2 < 0) index2 = 0;
-	if (index1 >= count) index1 = count;
-	if (index2 >= count) index2 = count;
+	if (index1 >= count) index1 = count-1;
+	if (index2 >= count) index2 = count-1;
 	if (index1 == index2) return *this; 
 	if (index1 < index2) { //when index1 is less then index2
 		cNode *ptr = removeAt(index1);
 		insertAt((index2 - 1), ptr);			//removig the node from index1 and iserting at index2-1 
 		cNode *ptr1 = removeAt(index2);
-		insertAt(index1, ptr1);		 //removing node from index2 and inserting it at index1	
+		insertAt(index1-1, ptr1);		 //removing node from index2 and inserting it at index1	
 	}
 	else {									//when index 1 is greater then index2
 		cNode *ptr = removeAt(index2);
@@ -166,6 +170,7 @@ cList & cList::swapNodesAt(int index1, int index2)
 	return *this;
 }
 
+//Function to reverse the list
 cList & cList::reverse()
 {
 	if (count < 2) return *this; //When only one node is present in the list 
@@ -180,26 +185,30 @@ cList & cList::reverse()
 	for (int i = 1; i < count; ++i) {
 		ARR[i]->nextNode = ARR[i - 1];
 	}
-	ARR[0] = NULL;
+	ARR[0]->nextNode = NULL;
 	headNode = ARR[count - 1];
 	delete[] ARR;
 	return *this;
 }
 
+//Cancatenating one list with another list
 cList & cList::operator+(const cList & robj)
 {
 	if (robj.count == 0) return *this; //when second list is empty
-	cList rCopy = robj;
-	if (!headNode) headNode = rCopy.headNode;
+	cList rCopy = robj;	
+	if (!headNode) headNode = rCopy.headNode; //Assigning head node of this by head node of rcopy
 	else {
-		cNode *ptr = headNode;
-		for (int i = 0; i < count; ++i) ptr = ptr->nextNode;
-		ptr->nextNode = rCopy.headNode;
-		count += rCopy.count;
+		cNode *ptr = headNode;		//runner pointer
+
+		for (int i = 0; i < count; ++i) ptr = ptr->nextNode; //Iterating through the list
+		ptr->nextNode = rCopy.headNode;  //Joining two list
+		count += rCopy.count;  //adding count of both the lists
 	}
 	rCopy.headNode = NULL;
 	return *this;
 }
+
+
 
 //Printing all the nodes in the cList
 void cList::print() const {
@@ -216,6 +225,7 @@ void cList::print() const {
 	}
 }
 
+//Function to delete nodes from list
 void cList::deleteNode(cNode *& ptr)
 {
 	if (ptr) {
