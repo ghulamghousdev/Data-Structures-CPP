@@ -1,5 +1,5 @@
 /*
-Function definations of cNode class
+Implementation file of cNode class
 */
 
 #include <iostream>
