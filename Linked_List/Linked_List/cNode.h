@@ -1,3 +1,6 @@
+/*
+Header file for cNode class
+*/
 #pragma once
 #include<iostream>
 #include <fstream>
