@@ -1,3 +1,6 @@
+/*
+Header file for cStack class
+*/
 #pragma once
 #include <iostream>
 #include "cNode.h"
