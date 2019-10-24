@@ -1,3 +1,6 @@
+/*
+Header file for cQueue class
+*/
 #pragma once
 #include "cStack.h"
 #include <iostream>
