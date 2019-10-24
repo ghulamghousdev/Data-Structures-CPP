@@ -1,3 +1,6 @@
+/*
+Implementation file for cPriorityQue class
+*/
 #include "cPriorityQue.h"
 #include <iostream>
 using namespace std;
