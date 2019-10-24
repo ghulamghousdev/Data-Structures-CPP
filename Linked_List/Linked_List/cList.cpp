@@ -1,3 +1,6 @@
+/*
+Implementation file for cList class
+*/
 #include "cList.h"
 #include <iostream>
 #include <fstream>
@@ -98,12 +101,12 @@ cList & cList::insert(cNode *& ptr)
 //Function to insert at a specific node
 cList & cList::insertAt(int index, cNode *& ptr)
 {
-	if (index < 0) return insert(ptr); //If index is less then 0, the node is inserted at the start of the list
+	if (index <= 0) return insert(ptr); //If index is less then 0, the node is inserted at the start of the list
 
-	if (index >= count) index = count; //If index is greter then or equal to count
+	if (index >= count) index = count-1; //If index is greter then or equal to count
 
 	cNode *rPtr = headNode; //runner pointer
-	for (int i = 0; i < index; ++i) rPtr = rPtr->nextNode; //Moving through the List to find the desired index
+	for (int i = 1; i < index; ++i) rPtr = rPtr->nextNode; //Moving through the List to find the desired index
 	//Linking the new node at the found index
 	ptr->nextNode = rPtr->nextNode;
 	rPtr->nextNode = ptr;
@@ -136,12 +139,13 @@ cNode * cList::removeAt(int index)
 		return remove();
 	}
 	if (index >= count) { //when index is greater the or equal to count, resetting the index equal to count 
-		index = count;
+		index = count-1;
 	}
 	cNode *rptr = headNode; //Runner pointer
-	for (int i = 1; i < index - 1; ++i)	rptr = rptr->nextNode; //Moving through the list to find the node to be deleted
+	for (int i = 1; i < index; ++i)	rptr = rptr->nextNode; //Moving through the list to find the node to be deleted
 	cNode *ptr = rptr->nextNode; 
 	rptr->nextNode = ptr->nextNode;
+	ptr->nextNode = NULL;
 	--count;
 	return ptr;
 }
@@ -159,7 +163,7 @@ cList & cList::swapNodesAt(int index1, int index2)
 		cNode *ptr = removeAt(index1);
 		insertAt((index2 - 1), ptr);			//removig the node from index1 and iserting at index2-1 
 		cNode *ptr1 = removeAt(index2);
-		insertAt(index1-1, ptr1);		 //removing node from index2 and inserting it at index1	
+		insertAt(index1, ptr1);		 //removing node from index2 and inserting it at index1	
 	}
 	else {									//when index 1 is greater then index2
 		cNode *ptr = removeAt(index2);
@@ -225,14 +229,6 @@ void cList::print() const {
 	}
 }
 
-//Function to delete nodes from list
-void cList::deleteNode(cNode *& ptr)
-{
-	if (ptr) {
-		deleteNode(ptr->nextNode);
-		delete ptr;
-	}
-}
 
 //Copy constructor for cList to avoid shallow copy
 cList::cList(const cList & src) :headNode(src.headNode), count(src.count) {
@@ -255,7 +251,8 @@ cList& cList::operator = (const cList & src) {
 	if (this == &src) return *this;
 
 	if (true) { cList temp; temp.headNode = this->headNode; }
-	if (true) { cList temp; temp = src; this->headNode = temp.headNode; temp.headNode = NULL; }
+	if (true) { cList temp= src; this->headNode = temp.headNode; temp.headNode = NULL; }
+	count = src.count;
 	return *this;
 }
 
@@ -264,5 +261,15 @@ cList::~cList() {
 	deleteNode(headNode);
 	{
 		void deleteNode(cNode *ptr);
+	}
+}
+
+
+//Function to delete nodes from list
+void cList::deleteNode(cNode *& ptr)
+{
+	if (ptr) {
+		deleteNode(ptr->nextNode);
+		delete ptr;
 	}
 }
