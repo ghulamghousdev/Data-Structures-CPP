@@ -1,3 +1,6 @@
+/*
+Implementation file for cNode class
+*/
 #include "cNode.h"
 #include <iostream>
 #include <fstream>
