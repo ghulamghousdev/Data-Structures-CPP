@@ -1,3 +1,6 @@
+/*
+Header file for cList class
+*/
 #pragma once
 #include "cNode.h"
 #include<iostream>
