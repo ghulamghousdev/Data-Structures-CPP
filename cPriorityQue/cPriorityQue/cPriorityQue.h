@@ -1,3 +1,6 @@
+/*
+Header file for cPriorityQueue class
+*/
 #pragma once
 #include "cQueue.h"
 #include <iostream>
