@@ -1,3 +1,6 @@
+/*
+Implementation file for cQueue class
+*/
 #include <iostream>
 #include "cQueue.h"
 
