@@ -14,7 +14,7 @@ cNode::cNode() :data(0) {}
 Parameterized constructor used to assign value passed
 by the user to the data member named as data
 */
-cNode::cNode(int d) : data(d) {}
+cNode::cNode(int d,int p) : data(d),priority(p) {}
 
 
 /*
