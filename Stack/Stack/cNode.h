@@ -1,4 +1,7 @@
 #pragma once
+/*
+Header file for cNode class
+*/
 #include <iostream>
 #include <fstream>
 using namespace std;
