@@ -1,3 +1,6 @@
+/*
+Implementation file for Queue class
+*/
 #include <iostream>
 #include "cQueue.h"
 
@@ -67,6 +70,7 @@ cQueue::cQueue(const cQueue & src) {
 
 		}
 		tail = dptr;
+		tail = NULL;
 	}
 }
 
@@ -96,8 +100,7 @@ cQueue & cQueue::operator =(const cQueue &obj) {
 		temp.tail = tail;
 	}
 	if (true) {
-		cQueue temp;
-		temp = obj;
+		cQueue temp=obj;
 		top = temp.top;
 		tail = temp.tail;
 		temp.top = NULL;
