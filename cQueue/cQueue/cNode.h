@@ -1,3 +1,6 @@
+/*
+Header File for cNode class 
+*/
 #pragma once
 class cNode
 {
