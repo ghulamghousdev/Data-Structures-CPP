@@ -22,7 +22,7 @@ public:
 	cNode(ofstream &oFile);
 	void writeNodetoFile(ofstream &outData);
 	void readNodefromFile(ifstream &inData);
-	cNode & setData(int d);
+	void setData(int d);
 	int getData();
 	void print() const;
 };

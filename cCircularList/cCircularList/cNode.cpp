@@ -21,9 +21,8 @@ void  cNode::writeNodetoFile(ofstream &outData) { outData.write((char*)this, siz
 void  cNode::readNodefromFile(ifstream &inData) { inData.read((char*)this, sizeof(this)); }
 
 
-cNode& cNode::setData(int d) {
+void cNode::setData(int d) {
 	this->data = d;
-	return *this;
 }
 
 int cNode::getData() {

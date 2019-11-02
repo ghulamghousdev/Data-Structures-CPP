@@ -18,6 +18,7 @@ public:
 
 	cCircularList & insertAt(int index, cNode *&ptr);
 	void print() const;
+	cNode& operator[](int Index);
 	cCircularList& swapNodesAt(int index1, int index2);
 	void sorting();
 	cCircularList & reverse();

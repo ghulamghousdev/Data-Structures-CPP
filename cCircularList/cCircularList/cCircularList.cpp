@@ -6,14 +6,14 @@ Implementation file for cCircularList
 using namespace std;
 
 
-cCircularList::cCircularList() :count(0), headNode(NULL){}
+cCircularList::cCircularList() :count(0), headNode(NULL) {}
 
-cCircularList::cCircularList(cNode *& ptr):headNode(ptr), count(1) {
+cCircularList::cCircularList(cNode*& ptr) : headNode(ptr), count(1) {
 	headNode->nextNode = ptr;
 	ptr = NULL;
 }
 
-cCircularList & cCircularList::insert(cNode *&ptr) {
+cCircularList& cCircularList::insert(cNode*& ptr) {
 	if (!headNode) {
 		headNode = ptr;
 		headNode->nextNode = headNode;
@@ -27,10 +27,10 @@ cCircularList & cCircularList::insert(cNode *&ptr) {
 	return *this;
 }
 
-cCircularList & cCircularList::insertAt(int index, cNode *&ptr) {
+cCircularList& cCircularList::insertAt(int index, cNode*& ptr) {
 	if (index <= 0)	insert(ptr);
 	if (index >= count) index = count;
-	cNode * rptr = headNode->nextNode;
+	cNode* rptr = headNode->nextNode;
 	for (int i = 0; i < index; i++) {
 		rptr = rptr->nextNode;
 	}
@@ -44,7 +44,7 @@ cCircularList & cCircularList::insertAt(int index, cNode *&ptr) {
 	return *this;
 }
 
-cNode * cCircularList::remove()
+cNode* cCircularList::remove()
 {
 	cNode* ptr;
 	if (count <= 1) {
@@ -63,13 +63,13 @@ cNode * cCircularList::remove()
 
 //Function to insert at a specific node
 cNode* cCircularList::removeAt(int index) {
-	if (index <= 0 || count==1) { //when index is less then or equal to zero, deleting the head node
+	if (index <= 0 || count == 1) { //when index is less then or equal to zero, deleting the head node
 		return remove();
 	}
 	if (index >= count) { //when index is greater the or equal to count, resetting the index equal to count 
-		index = count-1;
+		index = count - 1;
 	}
-	cNode *ptr, *rptr = headNode->nextNode; //Runner pointer
+	cNode* ptr, * rptr = headNode->nextNode; //Runner pointer
 	for (int i = 0; i < index; ++i)	rptr = rptr->nextNode; //Moving through the list to find the node to be deleted
 	if (rptr->nextNode == headNode) {
 		headNode = headNode->nextNode;
@@ -86,7 +86,7 @@ void cCircularList::print() const {
 		cout << "\nLinked List is empty\n";
 	}
 	else {
-		cNode *temp = headNode->nextNode;
+		cNode* temp = headNode->nextNode;
 		cout << "\nThe elements in the Link List is: ";
 		for (int i = 0; i < count; ++i) {
 			temp->print();
@@ -119,17 +119,17 @@ cCircularList& cCircularList::swapNodesAt(int index1, int index2)
 
 
 void cCircularList::sorting() {
-	
-	cNode* temp; 
+
+	cNode* temp;
 	int index;
 	temp = headNode->nextNode;
-	for (int i = 0; i < count-1; i++) {
+	for (int i = 0; i < count - 1; i++) {
 		cNode* rptr = temp->nextNode;
-	
+
 		for (int j = i + 1; j < count; j++) {
 
 			if (temp->getData() > rptr->getData()) {
-			
+
 				index = temp->getData();
 				temp->setData(rptr->getData());
 				rptr->setData(index);
@@ -137,30 +137,30 @@ void cCircularList::sorting() {
 
 			rptr = rptr->nextNode;
 		}
-		
+
 		temp = temp->nextNode;
 	}
 
 }
 
-cCircularList & cCircularList::reverse() {
-		if (count < 2) return *this; //When only one node is present in the list 
+cCircularList& cCircularList::reverse() {
+	if (count < 2) return *this; //When only one node is present in the list 
 
-		cNode* ptr;
-		cNode** ARR = new cNode * [count];
-		ptr = headNode->nextNode;
-		for (int i = 0; i < count; ++i) {
-			ARR[i] = ptr;
-			ptr = ptr->nextNode;
-		}
-		for (int i = 1; i < count; ++i) {
-			ARR[i]->nextNode = ARR[i - 1];
-		}
-		ARR[0]->nextNode = ARR[count - 1];
-		headNode = ARR[0];
-		delete[] ARR;
-		return *this;
+	cNode* ptr;
+	cNode** ARR = new cNode * [count];
+	ptr = headNode->nextNode;
+	for (int i = 0; i < count; ++i) {
+		ARR[i] = ptr;
+		ptr = ptr->nextNode;
 	}
+	for (int i = 1; i < count; ++i) {
+		ARR[i]->nextNode = ARR[i - 1];
+	}
+	ARR[0]->nextNode = ARR[count - 1];
+	headNode = ARR[0];
+	delete[] ARR;
+	return *this;
+}
 
 cCircularList& cCircularList::flip()
 {
@@ -169,9 +169,33 @@ cCircularList& cCircularList::flip()
 	return *this;
 }
 
+cNode& cCircularList::operator[](int Index)           // First element is 0.
+{
+	if (Index <= 0)
+		return *headNode;                          // If Index is smaller than one we return Top;
+
+	if (Index >= count)
+		Index = count - 1;
+
+	cNode* ptr = headNode->nextNode;
+
+	for (int i = 0; i < Index; ++i)
+		ptr = ptr->nextNode;
+
+	return *ptr;
+}
+
 
 
 
 cCircularList::~cCircularList()
 {
+	cNode* ptr,*ptr1;
+	ptr = headNode->nextNode;
+	for (int i = 0; i < count; i++) {
+		ptr1 = ptr;
+		ptr = ptr->nextNode;
+		headNode->nextNode = ptr;
+		delete ptr;
+	}
 }

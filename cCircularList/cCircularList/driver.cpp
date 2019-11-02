@@ -14,7 +14,7 @@ int main() {
 	cNode* n4 = new cNode(40);
 	cNode* n5 = new cNode(222);
 	cNode* n6 = new cNode(42);
-	cNode* n7 = new cNode(701);
+	cNode* n7 = new cNode(701); 
 
 	list.insert(n1).insert(n2).insert(n3).insert(n4).insert(n5).insert(n6).insert(n7);
 	//list.print();
