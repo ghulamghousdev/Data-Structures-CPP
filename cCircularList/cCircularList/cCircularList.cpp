@@ -165,9 +165,7 @@ cCircularList& cCircularList::reverse() {
 cCircularList& cCircularList::flip()
 {
 	reverse();
-	if (count % 2 != 0) {
-		headNode = headNode->nextNode;
-	}
+	headNode = headNode->nextNode;
 	return *this;
 }
 
@@ -205,6 +203,23 @@ cCircularList::cCircularList(const cCircularList& src) {
 }
 
 
+cCircularList& cCircularList::operator=(const cCircularList& src) {
+	if (this == &src) return *this;
+
+	if (true) {
+		cCircularList temp;
+		temp.headNode = headNode;
+		temp.count = count;
+	}
+	if (true) {
+		cCircularList temp = src;
+		headNode = temp.headNode;
+		count = temp.count;
+		temp.headNode = NULL;
+		temp.count = 0;
+		return *this;
+	}
+}
 
 cCircularList::~cCircularList()
 {
