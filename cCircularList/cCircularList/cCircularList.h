@@ -21,6 +21,8 @@ public:
 	cNode& operator[](int Index);
 	cCircularList& swapNodesAt(int index1, int index2);
 	void sorting();
+	cCircularList(const cCircularList& src);
+	cCircularList& operator =(const cCircularList& robj);
 	cCircularList & reverse();
 	cCircularList& flip();
 	~cCircularList();

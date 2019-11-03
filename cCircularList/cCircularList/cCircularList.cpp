@@ -72,7 +72,7 @@ cNode* cCircularList::removeAt(int index) {
 	cNode* ptr, * rptr = headNode->nextNode; //Runner pointer
 	for (int i = 0; i < index; ++i)	rptr = rptr->nextNode; //Moving through the list to find the node to be deleted
 	if (rptr->nextNode == headNode) {
-		headNode = headNode->nextNode;
+		headNode = rptr;
 	}
 	ptr = rptr->nextNode;
 	rptr->nextNode = ptr->nextNode;
@@ -165,7 +165,9 @@ cCircularList& cCircularList::reverse() {
 cCircularList& cCircularList::flip()
 {
 	reverse();
-	headNode = headNode->nextNode;
+	if (count % 2 != 0) {
+		headNode = headNode->nextNode;
+	}
 	return *this;
 }
 
@@ -186,16 +188,31 @@ cNode& cCircularList::operator[](int Index)           // First element is 0.
 }
 
 
+cCircularList::cCircularList(const cCircularList& src) {
+	this->headNode = src.headNode;
+	this->count = src.count;
+	if (count > 0) {
+		cNode* sptr, * dptr;
+		dptr = headNode = new cNode(*src.headNode);
+		sptr = src.headNode->nextNode;
+		for (int i = 1; i < count; ++i) {
+			dptr->nextNode = new cNode(*sptr);
+			sptr = sptr->nextNode;
+			dptr = dptr->nextNode;
+		}
+		dptr->nextNode = headNode;
+	}
+}
+
 
 
 cCircularList::~cCircularList()
 {
-	cNode* ptr,*ptr1;
-	ptr = headNode->nextNode;
+	cNode* ptr;
+	ptr = headNode;
 	for (int i = 0; i < count; i++) {
-		ptr1 = ptr;
 		ptr = ptr->nextNode;
-		headNode->nextNode = ptr;
-		delete ptr;
+		delete headNode;
+		headNode = ptr;
 	}
 }
