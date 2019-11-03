@@ -28,7 +28,7 @@ cCircularList& cCircularList::insert(cNode*& ptr) {
 }
 
 cCircularList& cCircularList::insertAt(int index, cNode*& ptr) {
-	if (index <= 0)	insert(ptr);
+	if (index <= 0)	return insert(ptr);
 	if (index >= count) index = count-1;
 	cNode* rptr = headNode->nextNode;
 	for (int i = 1; i < index; i++) {
@@ -126,11 +126,11 @@ void cCircularList::sorting() {
 	int index1;
 	for (int i = 0; i < count - 1; i++) {
 		cNode* rptr = temp->nextNode;
-	
+
 		for (int j = i + 1; j < count; j++) {
 
 			if (temp->getData() > rptr->getData()) {
-				
+
 				index = temp->getData();
 				temp->setData(rptr->getData());
 				rptr->setData(index);
@@ -173,7 +173,7 @@ cCircularList& cCircularList::flip()
 cNode& cCircularList::operator[](int Index)           // First element is 0.
 {
 	if (Index <= 0)
-		return *headNode;                          // If Index is smaller than one we return Top;
+		return *headNode->nextNode;                          // If Index is smaller than one we return Top;
 
 	if (Index >= count)
 		Index = count - 1;
