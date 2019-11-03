@@ -259,9 +259,6 @@ cList& cList::operator = (const cList & src) {
 //Class Destructor
 cList::~cList() {
 	deleteNode(headNode);
-	{
-		void deleteNode(cNode *ptr);
-	}
 }
 
 
