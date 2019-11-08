@@ -5,14 +5,16 @@ Implementation file for cCircularList
 #include <iostream>
 using namespace std;
 
-
+//Default constructor
 cCircularList::cCircularList() :count(0), headNode(NULL) {}
 
+//Parameterized constructor
 cCircularList::cCircularList(cNode*& ptr) : headNode(ptr), count(1) {
 	headNode->nextNode = ptr;
 	ptr = NULL;
 }
 
+//Function to insert a new node right after the head node in the list
 cCircularList& cCircularList::insert(cNode*& ptr) {
 	if (!headNode) {
 		headNode = ptr;
@@ -27,6 +29,7 @@ cCircularList& cCircularList::insert(cNode*& ptr) {
 	return *this;
 }
 
+//Function to insert a new node at given index in the list
 cCircularList& cCircularList::insertAt(int index, cNode*& ptr) {
 	if (index <= 0)	return insert(ptr);
 	if (index >= count) index = count-1;
@@ -44,6 +47,7 @@ cCircularList& cCircularList::insertAt(int index, cNode*& ptr) {
 	return *this;
 }
 
+//Function to remove a node right after the headnode
 cNode* cCircularList::remove()
 {
 	cNode* ptr;
@@ -61,7 +65,7 @@ cNode* cCircularList::remove()
 	return ptr;
 }
 
-//Function to insert at a specific node
+//Function to remove node from given index in the list
 cNode* cCircularList::removeAt(int index) {
 	if (index <= 0 || count == 1) { //when index is less then or equal to zero, deleting the head node
 		return remove();
@@ -95,6 +99,7 @@ void cCircularList::print() const {
 	}
 }
 
+//Function to swap two nodes
 cCircularList& cCircularList::swapNodesAt(int index1, int index2)
 {
 	if (index1 < 0) index1 = 0;
@@ -104,11 +109,11 @@ cCircularList& cCircularList::swapNodesAt(int index1, int index2)
 	if (index1 == index2) return *this;
 	if (index1 < index2) { //when index1 is less then index2
 		cNode* ptr = removeAt(index1);
-		insertAt((index2 - 1), ptr);			//removig the node from index1 and iserting at index2-1 
+		insertAt((index2 - 1), ptr);	//removig the node from index1 and iserting at index2-1 
 		cNode* ptr1 = removeAt(index2);
 		insertAt(index1, ptr1);		 //removing node from index2 and inserting it at index1	
 	}
-	else {									//when index 1 is greater then index2
+	else {						//when index 1 is greater then index2
 		cNode* ptr = removeAt(index2);
 		insertAt((index1 - 1), ptr);			//removig the node from index2 and iserting at index1-1 
 		cNode* ptr1 = removeAt(index1);
@@ -117,7 +122,7 @@ cCircularList& cCircularList::swapNodesAt(int index1, int index2)
 	return *this;
 }
 
-
+//function to sort a list
 void cCircularList::sorting() {
 
 	cNode* temp;
@@ -144,6 +149,7 @@ void cCircularList::sorting() {
 
 }
 
+//Function to reverse a linked list
 cCircularList& cCircularList::reverse() {
 	if (count < 2) return *this; //When only one node is present in the list 
 
@@ -163,12 +169,14 @@ cCircularList& cCircularList::reverse() {
 	return *this;
 }
 
+//Function to flip a circular linked list around a pivot
 cCircularList& cCircularList::flip()
 {
 	reverse();
 	headNode = headNode->nextNode;
 	return *this;
 }
+
 
 cNode& cCircularList::operator[](int Index)           // First element is 0.
 {
@@ -186,7 +194,7 @@ cNode& cCircularList::operator[](int Index)           // First element is 0.
 	return *ptr;
 }
 
-
+//copy constructor of circular linked List
 cCircularList::cCircularList(const cCircularList& src) {
 	this->headNode = src.headNode;
 	this->count = src.count;
@@ -203,7 +211,7 @@ cCircularList::cCircularList(const cCircularList& src) {
 	}
 }
 
-
+//Assignment operator overloaded
 cCircularList& cCircularList::operator=(const cCircularList& src) {
 	if (this == &src) return *this;
 
@@ -222,6 +230,7 @@ cCircularList& cCircularList::operator=(const cCircularList& src) {
 	}
 }
 
+//Destructor of circular linked list
 cCircularList::~cCircularList()
 {
 	cNode* ptr;
